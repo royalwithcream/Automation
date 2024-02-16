@@ -1,0 +1,55 @@
+
+15Feb23
+Got ansible working
+brew install ansible
+ansible -i hosts.ini AWS_Instances -m ping -u ubuntu  --private-key=DaveKey -vvv>logfile2
+explicitly set private key since it did not have it in the config file.
+
+Next add ansible.cfg
+ansible -i hosts.ini AWS_Instances -m ping -u ubuntu
+ansible -i hosts.ini AWS_Instances -a "free -h" -u ubuntu ## shows free memory on all your servers in the host file
+
+Now use a playbook to check Chrony is installed and running
+ansible-playbook playbook.yml -i hosts.ini -u ubuntu
+needed to change 'yum' to 'package' in playbook because of using Ubuntu distro
+
+
+    6  which ansible
+    7  sudo apt-add-repository -y ppa:ansible/ansible
+    8  sudo apt-get update
+    9  apt-get install -y ansible
+   10  sudo apt-get install -y ansible
+   11  ansible --version
+   12  sudo apt-get vagrant
+   13  history
+   14  sudo apt-get install -y vagrant
+   15  sudo apt-get install -y virtualbox
+   16  pwd
+   17  mkdir VagrantFiles
+   18  cd VagrantFiles/
+   19  vagrant box add ubuntu/noble64
+   20  vagrant init ubuntu/noble64
+   21  vagrant up
+
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["startvm", "d205656f-664b-4881-aa17-1ab6534793b3", "--type", "headless"]
+
+Stderr: VBoxManage: error: VT-x is not available (VERR_VMX_NO_VMX)
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+
+Vagrant doesn't work on a cloud EC2 instance. Vt-x cannot be nested.
+https://askubuntu.com/questions/779277/when-using-vagrant-stderr-vboxmanage-error-vt-x-is-not-available-verr-vmx-no
+
+
+14Feb23
+This exercise was to use ChatGPT to advise on python code to 
+- bring up an instance
+- Another to list what EC2 are running in your AWS account
+- Another script to list and terminate what is there.
+
+Main problems were relating to the private key. Need to specify the private key, not the public key when SSH into the EC2 instance! 
+
+ssh -i DaveKey ubuntu@ec2-54-74-212-158.eu-west-1.compute.amazonaws.com
+
