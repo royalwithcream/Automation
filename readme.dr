@@ -1,5 +1,5 @@
 
-15Feb23
+15Feb23 - Working on Ansible for DevOps by Jeff Geerling
 Got ansible working
 brew install ansible
 ansible -i hosts.ini AWS_Instances -m ping -u ubuntu  --private-key=DaveKey -vvv>logfile2
@@ -46,8 +46,11 @@ https://askubuntu.com/questions/779277/when-using-vagrant-stderr-vboxmanage-erro
 14Feb23
 This exercise was to use ChatGPT to advise on python code to 
 - bring up an instance
+    BringUpLinuxInstance.py
 - Another to list what EC2 are running in your AWS account
+    ListRunningInstances.py
 - Another script to list and terminate what is there.
+    ListAndTerminateRunningInstances.py
 
 Main problems were relating to the private key. Need to specify the private key, not the public key when SSH into the EC2 instance! 
 
